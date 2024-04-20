@@ -5,7 +5,7 @@ function CommentList({ items }) {
     <ul className={classes.comments}>
       {/* Render list of comments - fetched from API */}
       {items?.map(item => (
-        <li key={items.id}>
+        <li key={items._id}>
           {' '}
           <p>{item.text}</p>
           <div>
