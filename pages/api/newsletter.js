@@ -1,5 +1,12 @@
 import mongoDb from "../../helpers/db";
 
+async function insertDocument(document) {
+  const db = await mongoDb('newsletter');
+  const databaseConnetion = await db.db();
+
+  return await databaseConnetion.collection("emails").insertOne(document);
+}
+
 async function handler(req, res) {
   
   if (req.method === "POST") {
@@ -10,12 +17,7 @@ async function handler(req, res) {
       return;
     }
 
-    const db = await mongoDb('newsletter');
-    const databaseConnetion = await db.db();
-
-    await databaseConnetion.collection("emails").insertOne({ email: userEmail });
-
-    db.close()
+    await insertDocument({ email: userEmail })
 
     res.status(201).json({ message: "Signed up!" });
   }
